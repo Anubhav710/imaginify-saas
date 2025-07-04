@@ -6,7 +6,7 @@ declare type CreateUserParams = {
   email: string;
   username: string | null;
   firstName: string | null;
-  lastName: string |null;
+  lastName: string | null;
   photo: string;
 };
 
@@ -114,8 +114,8 @@ declare type RemoveUrlQueryParams = {
 };
 
 declare type SearchParamProps = {
-  params: { id: string; type: TransformationTypeKey };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ id: string; type: TransformationTypeKey }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 declare type TransformationFormProps = {
