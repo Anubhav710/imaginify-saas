@@ -9,6 +9,7 @@ import { plans } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 
 import { auth } from "@clerk/nextjs/server";
+import Checkout from "@/components/shared/Checkout";
 
 const Credits = async () => {
   const { userId } = await auth();
@@ -63,12 +64,12 @@ const Credits = async () => {
                 </Button>
               ) : (
                 <SignedIn>
-                  {/* <Checkout
+                  <Checkout
                     plan={plan.name}
                     amount={plan.price}
                     credits={plan.credits}
                     buyerId={user._id}
-                  /> */}
+                  />
                 </SignedIn>
               )}
             </li>
