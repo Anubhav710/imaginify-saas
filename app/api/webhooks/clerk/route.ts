@@ -1,7 +1,12 @@
 /* eslint-disable camelcase */
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
-import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
+import {
+  createUser,
+  deleteUser,
+  getUserById,
+  updateUser,
+} from "@/lib/actions/user.actions";
 import clerkClient from "@clerk/clerk-sdk-node";
 
 export async function POST(req: NextRequest) {
@@ -23,6 +28,16 @@ export async function POST(req: NextRequest) {
         last_name,
         username,
       } = evt.data;
+
+      // Check if user already exists in database
+      const existingUser = await getUserById(id);
+
+      if (existingUser) {
+        return NextResponse.json(
+          { message: "User already exists", user: existingUser },
+          { status: 409 }
+        );
+      }
 
       const user = {
         clerkId: id,
